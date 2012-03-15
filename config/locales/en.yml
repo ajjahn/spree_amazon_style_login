@@ -2,4 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  no_guest: "No, shop as guest"
+  yes_password: "Yes, I have a password"
+  have_account: "Do you have a %{site_name} password?"
+  login_as_existing: "Login or shop as guest"

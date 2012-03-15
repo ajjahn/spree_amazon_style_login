@@ -1,21 +1,19 @@
-SpreeAmazonStyleLogin
+Spree Amazon Style Login
 =====================
 
-Introduction goes here.
+Present the user with a single form to login or shop as a guest similar to Amazon.com.
 
 
-Example
-=======
+### Installation
 
-Example goes here.
+Add the following to you Gemfile:
 
-Testing
--------
+	gem 'spree_amazon_style_login', :git => 'git://github.com/ajjahn/spree_amazon_style_login.git'
 
-Be sure to bundle your dependencies and then create a dummy test app for the specs to run against.
+And run bundler:
 
-    $ bundle
-    $ bundle exec rake test_app
-    $ bundle exec rspec spec
+	bundle install
 
-Copyright (c) 2012 [name of extension creator], released under the New BSD License
+Add the javascript to your application.js manifest
+
+	//= require store/spree_amazon_style_login
