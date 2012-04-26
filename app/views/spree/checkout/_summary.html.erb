@@ -24,16 +24,16 @@
     <% end %>
   <% end %>
 </table>
-<% if session[:guest_token] == "true" %>
+<% if current_user.nil? %>
   <%= form_for :user, :url => spree.user_registration_path(@user) do |f| %>
-    <p>It appears your@email.com does not have an account with us. You will need one to track your order. Create one now?</p>
+    <p>It appears <%= @order.email %> does not have an account with us. You will need one to track your order. Create one now?</p>
     <h2>Yes, I want an account</h2>
-    <% hidden_field_tag :order_id %>
-    <% hidden_field_tag :email %>
+    <%= hidden_field_tag :order_id, @order.id %>
+    <%= f.hidden_field :email, value: @order.email %>
     <%= f.label :password, t(:password) %>
-    <%= f.email_field :password %>
-    <%= f.label :repeat_password, t(:repeat_password) %>
-    <%= f.email_field :repeat_password %>
+    <%= f.password_field :password %>
+    <%= f.label :password_confirmation, t(:repeat_password) %>
+    <%= f.password_field :password_confirmation %>
     <%= f.submit t(:sign_up_now) %>
   <% end %>
 <% end %>
