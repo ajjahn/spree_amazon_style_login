@@ -1,0 +1,39 @@
+<h1><%= t :order_summary %></h1>
+<table>
+  <tr>
+    <td><%= t :item_total %></td>
+    <td><%= number_to_currency order.item_total %></td>
+  </tr>
+  <% order.adjustments.eligible.each do |adjustment| %>
+  <% next if (adjustment.originator_type == "Spree::TaxRate") and (adjustment.amount == 0) %>
+    <tr>
+      <td><%= adjustment.label %></td>
+      <td><%= number_to_currency adjustment.amount %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><%= t :order_total %></td>
+    <td><%= number_to_currency @order.total %></td>
+  </tr>
+  <% if order.price_adjustment_totals.present? %>
+    <% @order.price_adjustment_totals.keys.each do |key| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= number_to_currency @order.price_adjustment_totals[key] %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<% if session[:guest_token] == "true" %>
+  <%= form_for :user, :url => spree.user_registration_path(@user) do |f| %>
+    <p>It appears your@email.com does not have an account with us. You will need one to track your order. Create one now?</p>
+    <h2>Yes, I want an account</h2>
+    <% hidden_field_tag :order_id %>
+    <% hidden_field_tag :email %>
+    <%= f.label :password, t(:password) %>
+    <%= f.email_field :password %>
+    <%= f.label :repeat_password, t(:repeat_password) %>
+    <%= f.email_field :repeat_password %>
+    <%= f.submit t(:sign_up_now) %>
+  <% end %>
+<% end %>
